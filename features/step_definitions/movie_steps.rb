@@ -20,3 +20,7 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
     step %{I #{uncheck}check "ratings_#{rating}"}
   end
 end
+
+Then /I should see (all|none) of the movies/ do |all_or_none|
+  page.all('table#movies tbody tr').count.should == (all_or_none == 'all' ? Movie.count : 0)
+end
